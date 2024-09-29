@@ -60,7 +60,7 @@ body {
 			z-index: 1000;
 			top: 1%;
 			opacity: 0; 
-            transition: opacity 3s ease;
+            transition: opacity 5s ease;
 		}
 		.katakot img {
 			height: 100%;
