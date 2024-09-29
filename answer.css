@@ -1,8 +1,14 @@
+* {
+            box-sizing: border-box;
+        }
 body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
         }
         .container {
             width: 100%;
@@ -45,3 +51,18 @@ body {
         .wrong {
             color: red;
         }
+		.katakot {
+			display: none;
+			height: 100%;
+			width: 100%; 
+			object-fit: contain;
+			position: absolute;
+			z-index: 1000;
+			top: 1%;
+			opacity: 0; 
+            transition: opacity 3s ease;
+		}
+		.katakot img {
+			height: 100%;
+			width: 100%; 
+                        }
