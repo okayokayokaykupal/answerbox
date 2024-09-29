@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Answer Checker</title>
-    <link rel = "stylesheet" href = "answer.css">
+    <link rel="stylesheet" href="answer.css">
 </head>
 <body>
 
@@ -14,18 +14,30 @@
     <div id="message" class="message"></div>
 </div>
 
+<div id="jumpscare" class="katakot">
+    <img src="pogi.jpeg">
+</div>
+
 <script>
     function checkAnswer() {
         const correctAnswer = "Yes"; 
         const userAnswer = document.getElementById("answerInput").value.trim();
         const messageDiv = document.getElementById("message");
+        const jumpscareDiv = document.getElementById("jumpscare"); 
 
         if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
             messageDiv.textContent = "Correct!";
             messageDiv.className = "message correct";
+            jumpscareDiv.style.display = "block"; 
+			 jumpscareDiv.style.opacity = "1"; 
+
+            setTimeout(function() {
+                jumpscareDiv.style.opacity = "0"; 
+            }, 1000); 
         } else {
             messageDiv.textContent = "Wrong!";
             messageDiv.className = "message wrong";
+            jumpscareDiv.style.display = "none"; 
         }
 
         messageDiv.style.display = "block";
