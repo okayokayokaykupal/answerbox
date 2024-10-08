@@ -175,7 +175,7 @@
             max-width: 600px;
 			color: #5C4033;
 			opacity: 0;
-			transition: opacity 2s ease;
+			transition: opacity 0.3s ease;
         }
         .modal-content h2{
 		font-weight: 700;
@@ -630,7 +630,7 @@
             modal.style.display = "flex";
 			setTimeout(() => {
             modalContent.style.opacity = "1";
-            }, 20);
+            }, 10);
         }
             function closeModal() {
             const modalContent = document.getElementById("modal-content");
@@ -640,7 +640,7 @@
             setTimeout(() => {
             const modal = document.getElementById("modal");
             modal.style.display = "none";
-         }, 1500); 
+         }, 400); 
 }
      function next() {
 	 const content = document.getElementById("content");
