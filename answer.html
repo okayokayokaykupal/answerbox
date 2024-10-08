@@ -6,20 +6,32 @@
     <title>Answer Checker</title>
     <link rel="stylesheet" href="answer.css">
     <style>
-        /* Global Styles */
+        * {
+            box-sizing: border-box;
+
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-image: url('background.jpg')
         }
 
         .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f4f4f4;
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-image: url('scroll1.jpg');
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			font-family: 'Arial';
+            color: #5C4033;
         }
 
         .container h2 {
@@ -34,7 +46,8 @@
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            border: 1px solid #ccc;
+            background-color: #f5deb3; 
+            border: 5px solid #8b4513;
             border-radius: 5px;
         }
 
@@ -42,15 +55,15 @@
             width: 100%;
             padding: 10px;
             font-size: 18px;
-            background-color: #28a745;
-            color: white;
+            background-color: #f5deb3;
+            color: #5C4033;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
 
         .container button:hover {
-            background-color: #218838;
+           background-color: #cfa07f;
         }
 
         .message {
@@ -84,54 +97,67 @@
         }
 
         .katakot {
-			display: none;
-			height: 100%;
-			width: 100%; 
-			object-fit: contain;
-			position: absolute;
-			z-index: 1000;
-			top: 1%;
-			opacity: 0; 
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            opacity: 0; 
             transition: opacity 3s ease;
-		}
-		.katakot img {
-			height: 100%;
-			width: 100%; 
-		}
+			justify-content: center;
+            align-items: center;
+        }
+
+        .katakot img {
+			max-width: 100%;
+            max-height: 100%;
+        }
 
     </style>
 </head>
 <body>
 <div id="jumpscare" class="katakot">
+    <img src="pogi1.jpeg" alt="Jumpscare Image">
+</div>
+<div id="jumpscare1" class="katakot">
     <img src="pogi.jpeg" alt="Jumpscare Image">
+</div>
+<div id="jumpscare2" class="katakot">
+    <img src="pogi2.jpeg" alt="Jumpscare Image">
 </div>
 
 <div class="container">
     <h2>Answer the questions below:</h2>
     <div>
+        <label>Input your Name</label>
+        <input type="text" id="name" placeholder="Enter your name here">
+    </div>
+    <div>
         <label>1. Kupal ba si Jorence? Yes or No</label>
-        <input type="text" id="answer1" placeholder="Enter your answer here">
+        <input type="text" id="answer1" placeholder="Enter your answer here. No Spaces">
     </div>
     <div>
         <label>2. Is the sky blue? Yes or No</label>
-        <input type="text" id="answer2" placeholder="Enter your answer here">
+        <input type="text" id="answer2" placeholder="Enter your answer here. No Spaces">
     </div>
     <div>
         <label>3. Is water wet? Yes or No</label>
-        <input type="text" id="answer3" placeholder="Enter your answer here">
+        <input type="text" id="answer3" placeholder="Enter your answer here. No Spaces">
     </div>
     <div>
         <label>4. Kupal ba si Jed? Yes or No</label>
-        <input type="text" id="answer4" placeholder="Enter your answer here">
+        <input type="text" id="answer4" placeholder="Enter your answer here. No Spaces">
     </div>
     <div>
         <label>5. Kupal ba si Brian? Yes or No</label>
-        <input type="text" id="answer5" placeholder="Enter your answer here">
+        <input type="text" id="answer5" placeholder="Enter your answer here. No Spaces">
     </div>
     <button onclick="checkAnswers()">Submit</button>
     <div id="message" class="message"></div>
 </div>
-
 
 <script>
     function checkAnswers() {
@@ -146,6 +172,9 @@
 
         const messageDiv = document.getElementById("message");
         const jumpscareDiv = document.getElementById("jumpscare");
+		const jumpscareDiv1 = document.getElementById("jumpscare1");
+		const jumpscareDiv2 = document.getElementById("jumpscare2");
+        const name = document.getElementById("name").value.trim();
 
         let score = 0;
 
@@ -156,9 +185,9 @@
         }
 
         if (score === 25) {
-            messageDiv.textContent = "Perfect! Your score is 25.";
+            messageDiv.textContent = "Perfect, " + name + "! Your score is 25.";
             messageDiv.className = "message correct";
-            jumpscareDiv.style.display = "block"; 
+            jumpscareDiv.style.display = "flex"; 
             jumpscareDiv.style.opacity = "1";
 
             setTimeout(function() {
@@ -168,14 +197,30 @@
             setTimeout(() => {
                 jumpscareDiv.style.display = "none"; 
             }, 2000);
-        } else if (score >= 20) {
-            messageDiv.textContent = "Almost perfect! Your score is " + score + ".";
+        } else if (score >= 15) {
+            messageDiv.textContent = "Kupal ka, " + name + "! Your score is " + score + ".";
             messageDiv.className = "message correct";
-            jumpscareDiv.style.display = "none";
+            jumpscareDiv1.style.display = "flex"; 
+            jumpscareDiv1.style.opacity = "1";
+			setTimeout(function() {
+                jumpscareDiv1.style.opacity = "0";
+            }, 1000);
+
+            setTimeout(() => {
+                jumpscareDiv1.style.display = "none"; 
+            }, 2000);
         } else {
-            messageDiv.textContent = "Try again! Your score is " + score + ".";
+            messageDiv.textContent = "Ewan bakit ganiyan ka, " + name + "! Your score is " + score + ".";
             messageDiv.className = "message wrong";
-            jumpscareDiv.style.display = "none";
+            jumpscareDiv2.style.display = "flex"; 
+            jumpscareDiv2.style.opacity = "1";
+			setTimeout(function() {
+                jumpscareDiv2.style.opacity = "0";
+            }, 1000);
+
+            setTimeout(() => {
+                jumpscareDiv2.style.display = "none"; 
+            }, 2000);
         }
 
         messageDiv.style.display = "block";
