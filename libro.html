@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporting</title>
+    <style>
+	@media (max-width: 1200px) {
+    .box1, .box2 {
+        width: 60%; 
+    }
+    .algebra {
+        width: 30%; 
+    }
+}
+
+@media (max-width: 992px) {
+    .box1, .box2 {
+        width: 80%; 
+    }
+    .algebra {
+        width: 45%; 
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        height: auto; 
+        flex-direction: column; 
+    }
+    .box1, .box2 {
+        height: 50%; 
+        width: 100%; 
+        position: relative; 
+    }
+    .buttonhati1, .buttonhati2 {
+        width: 10%; 
+        height: 10%;
+    }
+    .algebra {
+        width: 80%; 
+        height: auto; 
+        margin: 5px 0; /
+    }
+    .nextpage {
+        font-size: 30px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .algebra h1 {
+        font-size: 18px; 
+    }
+    .modal-content h2 {
+        font-size: 24px; 
+    }
+	.algebra {
+        width: 100%; 
+        margin-bottom: 10px;
+    }
+}
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0; 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-image: url('background.jpg')
+        }
+
+        .box1, .box2 {
+            z-index: 1003;
+            position: fixed;
+            height: 100%;
+            width: 50%;
+            background-color: #deb887; 
+            border: 5px solid #8b4513;
+            transition: 1s ease; 
+        }
+        .box1 {
+            left: 0;
+        }
+        .box2 {
+            right: 0;
+        }
+        .buttonhati1, .buttonhati2 {
+            position: absolute;
+            top: 50%;
+            background-color: #000;
+            border-radius: 50%; 
+            border: 2px solid #654321; 
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .buttonhati1 {
+            right: 2%;
+            border-radius: 100%;
+        }
+
+        .buttonhati2 {
+            border-radius: 100%;
+            left: 2%;
+        }
+        .content{
+	        position: relative;
+            z-index: 5;
+            width: 85%;
+            height: 95%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+			transition: 1s ease;
+        }
+
+        .algebra {
+            z-index: 10;
+            width: 23%;
+            height: 90%;
+            margin: 10px;
+            opacity: 0;
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-image: url('scroll.jpg');
+            font-family: 'Garamond', serif;
+            color: #5C4033;
+            padding: 3px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            text-align: center;
+			box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15), 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .algebra h1 {
+            transition: opacity 0.5s ease;
+        }
+
+        .add {
+            transition: 1.5s ease-in;
+        }
+        .sub {
+            transition: 2s ease-in;
+        }
+        .mul {
+            transition: 2.5s ease-in;
+        }
+        .div {
+            transition: 3s ease-in;
+        }
+
+        .algebra .description {
+            display: none;
+        }
+
+        .algebra .button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: none;
+			text-decoration: none;
+        }
+        .algebra .button:hover {
+            background-color: #654321;
+        }
+
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1001; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.5); 
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-image: url('bg.jpg');
+			background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 600px;
+			color: #5C4033;
+			opacity: 0;
+			transition: opacity 2s ease;
+        }
+        .modal-content h2{
+		font-weight: 700;
+		font-size: 40px;
+		font-family: 'Garamond', serif;
+		}
+        .close {
+            color: #5C4033;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #4B3025;
+        }
+		
+		.nextpage, .previous, .nextpage1, .previous1, .nextpage2, .previous2 {
+		position: absolute;
+        cursor: pointer;
+        top: 50%;
+        height: 40px;
+        width: 40px;
+        z-index: 1002;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #8b4513;
+        border: 3px solid #5C4033;
+        border-radius: 50%;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+		font-size: 30px;
+		color: #deb887;
+		}
+		
+		.nextpage {
+		right: -3%;
+		}
+		
+		.previous {
+		left: -8%;
+		}
+		
+		.nextpage1 {
+		right: -8%;
+		}
+		
+		.previous1 {
+		left: -8%;
+		}
+		
+		.nextpage2 {
+		right: -8%;
+		}
+		
+		.previous2 {
+		left: -8%;
+		}
+		.content1 {
+		position: absolute;
+		transform: translateX(200%);
+		background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat;
+        background-image: url('scroll.jpg');
+        font-family: 'Garamond', serif;
+        color: #5C4033;
+        z-index: 5;
+        width: 75%;
+        height: 85%;
+        display: flex;
+		flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+		padding: 0;
+	    transition: 1s ease;
+		box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15), 0px 5px 10px rgba(0, 0, 0, 0.1);
+		}
+		.games {
+		width: 70vw;
+		display: flex;
+        justify-content: space-between;
+        align-items: center;
+		}
+		
+		.addition, .subtraction {
+		margin: 0 100px 0 100px;
+		height: 100%;
+		width: 50%;
+		}
+		
+		.games h1, h2, h3, h4, h5, h6, 
+		.games1 h1, h2, h3, h4, h5, h6 {
+		padding: 0;
+		margin: 0;
+		}
+		
+		.answer {
+		background: none;
+		border: none;
+		border-bottom: 2px solid black;
+		font-size: 20px;
+		}
+		
+		.answer:focus {
+        outline: none;
+        }
+	    .correct {
+		text-align: center;
+		margin-top: 10px;
+		color: green;
+		font-size: 50px;
+		}
+		
+		.wrong {
+		margin-top: 10px;
+		text-align: center;
+		color: red;
+		font-size: 50px;
+		}
+		
+		.submit {
+		text=align: center;
+		align-items: center;
+		justify-content: center;
+		display: flex;
+		width: 100%;
+		border: 2px solid #8b4513;
+		background-color: #deb887;
+		padding: 20px;
+		font-size: 30px;
+		cursor: pointer;
+		transition: 0.5s ease;
+		}
+		
+		.submit:hover {
+		border: 2px solid #6b3311;
+		 background-color: #cfa07f;
+		}
+		
+		.games h1, .games1 h1 {
+		color: #4a2f14;
+		}
+		
+		.content2 {
+		position: absolute;
+		transform: translateX(200%);
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat;
+        background-image: url('scroll1.jpg');
+        font-family: 'Garamond', serif;
+        color: #5C4033;
+        z-index: 5;
+        width: 75%;
+        height: 85%;
+        display: flex;
+		flex-direction: column;
+        margin: 0;
+		padding: 0;
+	    transition: 1s ease;
+		box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15), 0px 5px 10px rgba(0, 0, 0, 0.1);
+		}
+		.definition {
+        display: none;
+        transition: opacity 2s ease;
+		opacity: 0;
+        }
+
+        .active {
+        display: block;
+        opacity: 1;
+        }
+		
+		.okay {
+		text=align: center;
+		align-items: center;
+		justify-content: center;
+		display: flex;
+		width: 100%;
+		border: 2px solid #8b4513;
+		background-color: #deb887;
+		font-size: 30px;
+		cursor: pointer;
+		transition: 0.5s ease;
+		letter-spacing: 2px;
+		}
+		
+		.okay:hover {
+		border: 2px solid #6b3311;
+		background-color: #cfa07f;
+		}
+		
+		.def {
+		width: 100%;
+		height: 10%;
+		display: flex;
+		flex-direction: rows;
+		margin-bottom: 40px;
+		color: #8b4513;
+		}
+		
+		.realdef {
+		font-size: 24px;
+		color: #8b4513
+		margin: 10px;
+		padding: 10px;
+		}
+		
+		.content3 {
+		position: absolute;
+		transform: translateX(200%);
+		background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat;
+        background-image: url('scroll.jpg');
+        font-family: 'Garamond', serif;
+        color: #5C4033;
+        z-index: 5;
+        width: 75%;
+        height: 85%;
+        display: flex;
+		flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+		padding: 0;
+	    transition: 1s ease;
+		box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15), 0px 5px 10px rgba(0, 0, 0, 0.1);
+		}
+		
+		.games1 {
+		font-size: 25px;
+		width: 80vw;
+		display: flex;
+        justify-content: space-between;
+        align-items: center;
+		}
+		
+		.games1 h3 {
+		font-size: 20px;
+		}
+    </style>
+</head>
+<body>
+    <div class="box1" id="box1">
+        <div class="buttonhati1" onclick="naclick()"></div>
+    </div>
+    <div class="box2" id="box2">
+        <div class="buttonhati2" onclick="naclick()"></div>
+    </div>
+    
+    <div class="content" id = "content">
+	<div class ="nextpage" onclick = "next()">></div>
+        <div class="algebra add" onclick="popup(this)">
+            <h1 data-title="Addition of Functions">Addition of Functions</h1> 
+            <div class="description">In the addition of functions, we add the values of two functions at corresponding points.</div>
+            <a class="button" onclick="showModal('addition')">Example</a>
+        </div>
+        <div class="algebra sub" onclick="popup(this)">
+            <h1 data-title="Subtraction of Functions">Subtraction of Functions</h1>
+            <div class="description">In the subtraction of functions, we subtract the values of one function from another at corresponding points.</div>
+            <a class="button" onclick="showModal('subtraction')">Example</a>
+        </div>
+        <div class="algebra mul" onclick="popup(this)">
+            <h1 data-title="Multiplication of Functions">Multiplication of Functions</h1>
+            <div class="description">Multiplication of functions involves multiplying the values of two functions at corresponding points.</div>
+            <a class="button" onclick="showModal('multiplication')">Example</a>
+        </div>
+        <div class="algebra div" onclick="popup(this)">
+            <h1 data-title="Division of Functions">Division of Functions</h1>
+            <div class="description">Division of functions involves dividing the values of one function by another at corresponding points.</div>
+            <a class="button" onclick="showModal('division')">Example</a>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content" id = "modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-text"></div>
+        </div>
+    </div>
+	
+	<div class = "content1" id = "content1"> 
+	<div class ="previous" onclick = "previous()"><</div>
+	<div class ="nextpage1" onclick = "next1()">></div>
+	<h1>If f(x) = x + 4 and g(x) = x² - 2x + 3. Find the addition and subtraction of function for this<h1><br>
+	<div class = "games">
+	<div class = "addition">
+	<h2>Addition</h2><br>
+	<h5>(f + g)(x) = f(x) + g(x)</h5>
+	<p>(f + g)(x) = <input class = "answer" type = "text" id ="answer" placeholder = "Enter your anwer here"></p>
+	<button class = "submit" onclick = "answer()">Submit</button>
+	<div class = "text" id = "text"></div>
+	<div class = "solution" id = "solution"></div>
+	</div>
+	<div class = "subtraction">
+	<h2>Subtraction</h2><br>
+	<h5>(f - g)(x) = f(x) - g(x)</h5>
+	<p>(f - g)(x) = <input class = "answer" type = "text" id ="answer1" placeholder = "Enter your anwer here"></p>
+	<button class = "submit" onclick = "answer1()">Submit</button>
+	<div class = "text1" id = "text1"></div>
+	<div class = "solution1" id = "solution1"></div>
+	</div>
+	</div>
+    </div>
+	
+	<div class = "content2" id="content2">
+	<div class ="previous1" onclick = "previous1()"><</div>
+	<div class ="nextpage2" onclick = "nextpage2()">></div>
+	<div class ="def">
+	<button class = "okay" onclick = "definition('inverse')">Inverse</button>
+    <button class = "okay" onclick = "definition('composite')">Composite</button>
+    </div>
+	
+	<div class ="realdef">
+	 <div id="inverse" class="definition">
+    <h2>Inverse Function</h2>
+    <h3>Inverses reverse the effect of a function, existing only if the original function is bijective (one-to-one and onto). Think of them as undoing what the original function does.</h3>
+	<p>Given: y(x)= 3x + 5</p>
+	<p>Replace f(x) with y: </p>
+	<p>y = 3x + 5</p>
+	<p>Swap x and y:</p>
+	<p>x = 3y + 5</p>
+	<p>Solve for y:</p>
+	<p>x - 5 = 3y</p>
+	<p>y = (x - 5) / 3</p>
+	<p>Final Answer:</p>
+	<p>f⁻¹(x) = (x - 5) / 3</p>
+    </div>
+
+    <div id="composite" class="definition">
+    <h2>Composite Function</h2>
+    <h3>Combining two functions (f∘g)(x)=f(g(x)), allows complex transformations by applying one function to the result of another.</h3>
+	<p>If f (x) = 2x and g(x) = x+1, then find (f∘g)(x) if x = 1.</p>
+	<p>Given: f(x) = 2x and g(x) = x+ 1</p>
+	<p>Therefore, the composition of f from g will be;</p>
+	<p>(f∘g)(x) = f(g(x)) = f(x+1) = 2(x+1)</p>
+	<p>Now putting the value of x = 1</p>
+	<p>Final Answer:</p>
+	<p>f(g(1)) = 2(1+1) = 2 (2) = 4</p>
+    </div>
+	</div>
+	</div>
+	
+	<div class = "content3" id = "content3">
+	<div class ="previous2" onclick = "previous2()"><</div>
+	<div class ="nextpage1" onclick = "next1()">></div>
+	<div class = "games1">
+	<div class = "addition">
+	<h1>Inverse Function</h1><br>
+	<h3>if f(x) = 5x + 6. What is the Inverse function?</h3>
+	<p>y⁻¹(x)) = <input class = "answer" type = "text" id ="answer2" placeholder = "Enter your anwer here"></p>
+	<button class = "submit" onclick = "answer2()">Submit</button>
+	<div class = "text" id = "text2"></div>
+	</div>
+	<div class = "subtraction">
+	<h1>Composite Function</h1><br>
+	<h3>If f(x) = 2x +1 and g(x) = -x2, then find (g∘f)(x) for x = 2.</h3>
+	<p>(g∘f)x) = <input class = "answer" type = "text" id ="answer3" placeholder = "Enter your anwer here"></p>
+	<button class = "submit" onclick = "answer3()">Submit</button>
+	<div class = "text" id = "text3"></div>
+	</div>
+	</div>
+	</div>
+    <script>
+
+        function naclick() {
+		const box1 = document.getElementById('box1');
+        const box2 = document.getElementById('box2');
+        const algebraElements = document.querySelectorAll('.algebra');
+            if (box1.style.transform === 'translateX(0%)' && box2.style.transform === 'translateX(0%)') {
+                box1.style.transform = 'translateX(-94%)';
+                box2.style.transform = 'translateX(94%)';
+                algebraElements.forEach((el) => {
+                    el.style.opacity = '100%'; 
+                });
+            } else {
+                box1.style.transform = 'translateX(0%)';
+                box2.style.transform = 'translateX(0%)';
+                algebraElements.forEach((el) => {
+                    el.style.opacity = '0';
+                });
+            }
+        }
+
+         function popup(element) {
+            const titleElement = element.querySelector('h1');
+            const description = element.querySelector('.description');
+            const originalTitle = titleElement.getAttribute('data-title');
+            const button = element.querySelector('.button');
+
+            titleElement.style.opacity = 0; 
+            setTimeout(() => {
+                if (titleElement.textContent === originalTitle) {
+                    titleElement.textContent = description.textContent;
+                    button.style.display = 'block'; 
+                } else {
+                    titleElement.textContent = originalTitle;
+                    button.style.display = 'none'; 
+                }
+                titleElement.style.opacity = 1;
+            }, 500);
+        }
+         
+        function showModal(type) {
+		    const modal = document.getElementById("modal");
+            const modalText = document.getElementById("modal-text");
+			const modalContent = document.getElementById("modal-content");
+            let content = '';
+            if (type === 'addition') {
+                content = `<h2>Addition of Functions Example</h2>
+				           <p>The domain of the sum of two functions is the intersection of the domain of the independent functions. The sum of two functions at a given input is equal to the sum of the independent functions at the same input. i.e.,</p>
+				           <p>The formula for the addition of function is <strong>(f + g)(x) = f(x) + g(x)</strong></p>
+				           <p>Let f(x) and g(x) represent the two functions</p><br>
+                           <p>If f(x) = x + 2 and g(x) = x² - 3x + 2 then find (f + g)(x) and (f - g)(x).</p>
+                           <p>= (x + 2) + (x² - 3x + 2)</p>
+						   <p>= x² - 2x + 4</p>`;
+            } else if (type === 'subtraction') {
+                content = `<h2>Subtraction of Functions Example</h2>
+				           <p>The domain of the difference of two functions is the intersection of the domain of the independent functions. The difference of two functions at a given input is equal to the difference of the independent functions at the same input. i.e.,</p>
+				           <p>The formula for the subtraction of function is <strong>(f - g)(x) = f(x) - g(x)</strong></p>
+						   <p>Let f(x) and g(x) represent the two functions</p><br>
+                           <p>If f(x) = x + 2 and g(x) = x² - 3x + 2 then find (f + g)(x) and (f - g)(x).</p>
+                           <p>= (x + 2) - (x² - 3x + 2)</p>
+						   <p>= x + 2 - x² + 3x - 2</p>
+						   <p>= -x² + 4x</p>`;
+            } else if (type === 'multiplication') {
+                content = `<h2>Multiplication of Functions Example</h2>
+				           <p>The domain of the product of two functions is the intersection of the domain of the independent functions. The product of two functions at a given input is equal to the product of the independent functions at the same input. i.e., The product of functions results in a binomial function, cubic function, or a polynomial function.</p>
+				           <p>The formula for the multiplication of function is <strong>(f · g) (x) = f(x) · g(x)</strong></p>
+						   <p>Let f(x) and g(x) represent the two functions</p><br>
+                           <p>If f(x) = x + 2 and g(x) = x² - 3x + 2 then find (f + g)(x) and (f - g)(x) and find their domains.</p>
+                           <p>= (x + 2) (x2 - 3x + 2)</p>
+						   <p>= x3 - 3x2 + 2x + 2x2 - 6x + 4</p>
+						   <p>= x3 - x2 - 4x + 4</p>`;
+            } else if (type === 'division') {
+                content = `<h2>Division of Functions Example</h2>
+				           <p>The domain of the quotient of two functions is the intersection of the domain of the independent functions. But we have to take care of the extra condition, setting the denominator function to "not equal to 0" because if the denominator is 0, then the fraction is undefined. The quotient of two functions at a given input is equal to the quotient of the independent functions at the same input. i.e.,</p>
+				           <p>The formula for the division of function is <strong>(f / g) (x) = f(x) / g(x), given g(x) ≠ 0</strong></p>
+						   <p>Let f(x) and g(x) represent the two functions</p><br>
+                           <p>If f(x) = x + 2 and g(x) = x² - 3x + 2 then find (f + g)(x) and (f - g)(x) and find their domains.</p>
+						   <p>= (x + 2) / (x2 - 3x + 2)</p>
+						   <p>= (x + 2) / [(x - 2) (x - 1)]`;
+            }
+
+            modalText.innerHTML = content;
+            modal.style.display = "flex";
+			setTimeout(() => {
+            modalContent.style.opacity = "1";
+            }, 20);
+        }
+            function closeModal() {
+            const modalContent = document.getElementById("modal-content");
+
+            modalContent.style.opacity = "0";
+    
+            setTimeout(() => {
+            const modal = document.getElementById("modal");
+            modal.style.display = "none";
+         }, 1500); 
+}
+     function next() {
+	 const content = document.getElementById("content");
+	 const content1 = document.getElementById("content1");
+	 
+	 content.style.transform = 'translateX(-200%)';
+	 content1.style.transform = 'translateX(0%)';
+	 }
+	 
+	 function previous() {
+	 const content = document.getElementById("content");
+	 const content1 = document.getElementById("content1");
+	 
+	 content.style.transform = 'translateX(0%)';
+	 content1.style.transform = 'translateX(200%)';
+	 }
+	 
+	 function answer() {
+    const correctanswer = 'x^2-x+7';
+    const answer = document.getElementById("answer").value.trim();
+    const message = document.getElementById("text");
+
+    if (answer.toLowerCase() === correctanswer.toLowerCase()) {
+        message.textContent = "Correct!";
+        message.className = "message correct";
+    } else {
+        message.textContent = "Wrong!";
+        message.className = "message wrong";
+    }
+
+}
+    function answer1() {
+	const correctanswer1 = '-x^2+3x+1';
+    const answer1 = document.getElementById("answer1").value.trim();
+    const message1 = document.getElementById("text1");
+	
+	 if (answer1.toLowerCase() === correctanswer1.toLowerCase()) {
+        message1.textContent = "Correct!";
+        message1.className = "message correct";
+    } else {
+        message1.textContent = "Wrong!";
+        message1.className = "message wrong";
+    }
+}
+
+function answer2() {
+	const correctanswer2 = '(x-6)/5';
+    const answer2 = document.getElementById("answer2").value.trim();
+    const message2 = document.getElementById("text2");
+	
+	 if (answer2.toLowerCase() === correctanswer2.toLowerCase()) {
+        message2.textContent = "Correct!";
+        message2.className = "message correct";
+    } else {
+        message2.textContent = "Wrong!";
+        message2.className = "message wrong";
+    }
+}
+
+function answer3() {
+	const correctanswer3 = '-25';
+    const answer3 = document.getElementById("answer3").value.trim();
+    const message3 = document.getElementById("text3");
+	
+	 if (answer3.toLowerCase() === correctanswer3.toLowerCase()) {
+        message3.textContent = "Correct!";
+        message3.className = "message correct";
+    } else {
+        message3.textContent = "Wrong!";
+        message3.className = "message wrong";
+    }
+}
+
+    function next1() {
+	 const content1 = document.getElementById("content1");
+	 const content2 = document.getElementById("content2");
+	 
+	 content1.style.transform = 'translateX(-200%)';
+	 content2.style.transform = 'translateX(0%)';
+	}
+	function previous1() {
+	 const content1 = document.getElementById("content1");
+	 const content2 = document.getElementById("content2");
+	 
+	 content1.style.transform = 'translateX(0%)';
+	 content2.style.transform = 'translateX(200%)';
+	}
+	
+    function definition(defType) {
+      document.querySelectorAll('.definition').forEach(el => el.classList.remove('active'));
+      document.getElementById(defType).classList.add('active');
+    }
+	
+	function nextpage2() {
+	 const content2 = document.getElementById("content2");
+	 const content3 = document.getElementById("content3");
+	 
+	 content2.style.transform = 'translateX(-200%)';
+	 content3.style.transform = 'translateX(0%)';
+	}
+	function previous2() {
+	 const content2 = document.getElementById("content2");
+	 const content3 = document.getElementById("content3");
+	 
+	 content2.style.transform = 'translateX(0%)';
+	 content3.style.transform = 'translateX(200%)';
+	}
+    </script>
+</body>
+</html>
