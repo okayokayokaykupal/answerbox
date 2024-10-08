@@ -641,21 +641,6 @@
             modal.style.display = "none";
          }, 400); 
 }
-     function next() {
-	 const content = document.getElementById("content");
-	 const content1 = document.getElementById("content1");
-	 
-	 content.style.transform = 'translateX(-200%)';
-	 content1.style.transform = 'translateX(0%)';
-	 }
-	 
-	 function previous() {
-	 const content = document.getElementById("content");
-	 const content1 = document.getElementById("content1");
-	 
-	 content.style.transform = 'translateX(0%)';
-	 content1.style.transform = 'translateX(200%)';
-	 }
 	 
 	 function answer() {
     const correctanswer = 'x^2-x+7';
@@ -713,12 +698,34 @@ function answer3() {
     }
 }
 
+     function next() {
+	 const content = document.getElementById("content");
+	 const content1 = document.getElementById("content1");
+	 
+	 content.style.transform = 'translateX(-200%)';
+	 content1.style.transform = 'translateX(0%)';
+	 content.style.opacity = '0';
+	 content1.style.opacity = '1';
+	 }
+	 
+	 function previous() {
+	 const content = document.getElementById("content");
+	 const content1 = document.getElementById("content1");
+	 
+	 content.style.transform = 'translateX(0%)';
+	 content1.style.transform = 'translateX(200%)';
+	 content.style.opacity = '1';
+	 content1.style.opacity = '0';
+	 }
+	 
     function next1() {
 	 const content1 = document.getElementById("content1");
 	 const content2 = document.getElementById("content2");
 	 
 	 content1.style.transform = 'translateX(-200%)';
 	 content2.style.transform = 'translateX(0%)';
+	 content1.style.opacity = '0';
+	 content2.style.opacity = '1';
 	}
 	function previous1() {
 	 const content1 = document.getElementById("content1");
@@ -726,6 +733,8 @@ function answer3() {
 	 
 	 content1.style.transform = 'translateX(0%)';
 	 content2.style.transform = 'translateX(200%)';
+	 content1.style.opacity = '1';
+	 content2.style.opacity = '0';
 	}
 	
     function definition(defType) {
@@ -739,6 +748,8 @@ function answer3() {
 	 
 	 content2.style.transform = 'translateX(-200%)';
 	 content3.style.transform = 'translateX(0%)';
+	 content2.style.opacity = '0';
+	 content3.style.opacity = '1';
 	}
 	function previous2() {
 	 const content2 = document.getElementById("content2");
@@ -746,6 +757,8 @@ function answer3() {
 	 
 	 content2.style.transform = 'translateX(0%)';
 	 content3.style.transform = 'translateX(200%)';
+	 content2.style.opacity = '1';
+	 content3.style.opacity = '0';
 	}
     </script>
 </body>
