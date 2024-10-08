@@ -5,60 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporting</title>
     <style>
-	@media (max-width: 1200px) {
-    .box1, .box2 {
-        width: 60%; 
-    }
-    .algebra {
-        width: 30%; 
-    }
-}
-
-@media (max-width: 992px) {
-    .box1, .box2 {
-        width: 80%; 
-    }
-    .algebra {
-        width: 45%; 
-    }
-}
-
-@media (max-width: 768px) {
-    body {
-        height: auto; 
-        flex-direction: column; 
-    }
-    .box1, .box2 {
-        height: 50%; 
-        width: 100%; 
-        position: relative; 
-    }
-    .buttonhati1, .buttonhati2 {
-        width: 10%; 
-        height: 10%;
-    }
-    .algebra {
-        width: 80%; 
-        height: auto; 
-        margin: 5px 0; /
-    }
-    .nextpage {
-        font-size: 30px; 
-    }
-}
-
-@media (max-width: 480px) {
-    .algebra h1 {
-        font-size: 18px; 
-    }
-    .modal-content h2 {
-        font-size: 24px; 
-    }
-	.algebra {
-        width: 100%; 
-        margin-bottom: 10px;
-    }
-}
+        @media (min-width: 768px) {
+            .box1, .box2 {
+                width: 50%; /* On larger screens, keep them side-by-side */
+            }
+        }
+		 @media (min-width: 768px) {
+            .content {
+                flex-direction: row;
+                width: 85%;
+            }
+        }
+		 @media (min-width: 768px) {
+            .algebra {
+                width: 23%;
+            }
+        }
+		
         * {
             box-sizing: border-box;
         }
