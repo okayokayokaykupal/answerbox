@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Checker</title>
+    <link rel="stylesheet" href="answer.css">
+	<meta property="og:image" content="https://raw.githubusercontent.com/okayokayokaykupal/answerbox/main/thumbnail.jpg" />
+    <meta property="og:title" content="Answer Checker" />
+    <meta property="og:description" content="Test your answers with our fun quiz!" />
+    <style>
+        * {
+            box-sizing: border-box;
+
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+			background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-image: url('background.jpg')
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-size: cover; 
+            border-radius: 10px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+			font-family: 'Arial';
+            color: #5C4033;
+			background: none;
+			font-weight: 900;
+        }
+
+        .container h2 {
+            text-align: center;
+        }
+
+        .container div {
+            margin-bottom: 15px;
+        }
+
+        .container input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #f5deb3; 
+            border: 5px solid #8b4513;
+            border-radius: 5px;
+        }
+
+        .container button {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #f5deb3;
+            color: #5C4033;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .container button:hover {
+           background-color: #cfa07f;
+        }
+
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .wrong {
+            color: red;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 800px;
+                padding: 30px;
+            }
+
+            .container input, .container button {
+                font-size: 18px;
+                padding: 12px;
+            }
+
+            .container h2 {
+                font-size: 28px;
+            }
+        }
+
+        .katakot {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            opacity: 0; 
+            transition: opacity 3s ease;
+			justify-content: center;
+            align-items: center;
+        }
+
+        .katakot img {
+			max-width: 100%;
+            max-height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+<div id="jumpscare" class="katakot">
+    <img src="pogi1.jpeg" alt="Jumpscare Image">
+</div>
+<div id="jumpscare1" class="katakot">
+    <img src="pogi.jpeg" alt="Jumpscare Image">
+</div>
+<div id="jumpscare2" class="katakot">
+    <img src="pogi2.jpeg" alt="Jumpscare Image">
+</div>
+
+<div class="container">
+    <h2>Answer the questions below:</h2>
+    <div>
+        <label>Input your Name</label>
+        <input type="text" id="name" placeholder="Enter your name here">
+    </div>
+    <div>
+        <label>1. It is any set of ordered pairs</label>
+        <input type="text" id="answer1" placeholder="Enter your answer here. No Spaces">
+    </div>
+    <div>
+        <label>2. It is a relation which describes that there should be only one output for each input</label>
+        <input type="text" id="answer2" placeholder="Enter your answer here. No Spaces">
+    </div>
+    <div>
+        <label>3. The set of all x-components of ordered pairs is called the?</label>
+        <input type="text" id="answer3" placeholder="Enter your answer here. No Spaces">
+    </div>
+    <div>
+        <label>4. Use the output of one function as the input of another</label>
+        <input type="text" id="answer4" placeholder="Enter your answer here. No Spaces">
+    </div>
+    <div>
+        <label>5. It is the reverse method of a function</label>
+        <input type="text" id="answer5" placeholder="Enter your answer here. No Spaces">
+    </div>
+    <button onclick="checkAnswers()">Submit</button>
+    <div id="message" class="message"></div>
+</div>
+
+<script>
+    function checkAnswers() {
+        const correctAnswers = ["relation", "function", "domain", "composite", "inverse"]; 
+        const userAnswers = [
+            document.getElementById("answer1").value.trim(),
+            document.getElementById("answer2").value.trim(),
+            document.getElementById("answer3").value.trim(),
+            document.getElementById("answer4").value.trim(),
+            document.getElementById("answer5").value.trim()
+        ];
+
+        const messageDiv = document.getElementById("message");
+        const jumpscareDiv = document.getElementById("jumpscare");
+		const jumpscareDiv1 = document.getElementById("jumpscare1");
+		const jumpscareDiv2 = document.getElementById("jumpscare2");
+        const name = document.getElementById("name").value.trim();
+
+        let score = 0;
+
+        for (let i = 0; i < correctAnswers.length; i++) {
+            if (userAnswers[i].toLowerCase() === correctAnswers[i].toLowerCase()) {
+                score += 2;
+            }
+        }
+
+        if (score === 10) {
+            messageDiv.textContent = "Perfect, " + name + "! Your score is 25.";
+            messageDiv.className = "message correct";
+            jumpscareDiv.style.display = "flex"; 
+            jumpscareDiv.style.opacity = "1";
+
+            setTimeout(function() {
+                jumpscareDiv.style.opacity = "0";
+            }, 1000);
+
+            setTimeout(() => {
+                jumpscareDiv.style.display = "none"; 
+            }, 2000);
+        } else if (score >= 6) {
+            messageDiv.textContent = "Kupal ka, " + name + "! Your score is " + score + ".";
+            messageDiv.className = "message correct";
+            jumpscareDiv1.style.display = "flex"; 
+            jumpscareDiv1.style.opacity = "1";
+			setTimeout(function() {
+                jumpscareDiv1.style.opacity = "0";
+            }, 1000);
+
+            setTimeout(() => {
+                jumpscareDiv1.style.display = "none"; 
+            }, 2000);
+        } else {
+            messageDiv.textContent = "Ewan bakit ganiyan ka, " + name + "! Your score is " + score + ".";
+            messageDiv.className = "message wrong";
+            jumpscareDiv2.style.display = "flex"; 
+            jumpscareDiv2.style.opacity = "1";
+			setTimeout(function() {
+                jumpscareDiv2.style.opacity = "0";
+            }, 1000);
+
+            setTimeout(() => {
+                jumpscareDiv2.style.display = "none"; 
+            }, 2000);
+        }
+        
+        messageDiv.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
