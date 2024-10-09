@@ -17,7 +17,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-	    background-size: cover; 
+			background-size: cover; 
             background-position: center; 
             background-repeat: no-repeat;
             background-image: url('background.jpg')
@@ -27,12 +27,13 @@
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+            background-size: cover; 
             border-radius: 10px;
             box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
-            background: none;
-	    font-family: 'Arial';
+			font-family: 'Arial';
             color: #5C4033;
-            font-weight: 900;
+			background: none;
+			font-weight: 900;
         }
 
         .container h2 {
@@ -116,18 +117,42 @@
 			max-width: 100%;
             max-height: 100%;
         }
-
+        #box {
+            width: 100px;
+            height: 100px;
+            background: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-decoration: none;
+			
+        }
+		
+		.answerbox {
+		position: absolute;
+		background-color: white;
+		width: auto;
+		height: auto;
+		padding: 10px;
+		display: none;
+		opacity: 0;
+		cursor: pointer;
+		flex-direction: column;
+		}
     </style>
 </head>
 <body>
 <div id="jumpscare" class="katakot">
-    <img src="pogi1.jpeg" alt="Jumpscare Image">
+    <img src="pogi3.jpeg" alt="Jumpscare Image">
 </div>
 <div id="jumpscare1" class="katakot">
-    <img src="pogi.jpeg" alt="Jumpscare Image">
+    <img src="pogi4.jpeg" alt="Jumpscare Image">
 </div>
 <div id="jumpscare2" class="katakot">
-    <img src="pogi2.jpeg" alt="Jumpscare Image">
+    <img src="pogi5.jpeg" alt="Jumpscare Image">
 </div>
 
 <div class="container">
@@ -137,32 +162,39 @@
         <input type="text" id="name" placeholder="Enter your name here">
     </div>
     <div>
-        <label>1. Kupal ba si Jorence? Yes or No</label>
+        <label>1. If f(x) = x² + 5x + 6 and g(x) = 3x - 5. Find the addition</label>
         <input type="text" id="answer1" placeholder="Enter your answer here. No Spaces">
     </div>
     <div>
-        <label>2. Is the sky blue? Yes or No</label>
+        <label>2. If f(x) = 2x + 6 and g(x) = x² + 4x + 3. What is the division of function</label>
         <input type="text" id="answer2" placeholder="Enter your answer here. No Spaces">
     </div>
     <div>
-        <label>3. Is water wet? Yes or No</label>
+        <label>3. If f(x) = 2x + 3 and g(x) = x² - 1. What is the multiplication of function</label>
         <input type="text" id="answer3" placeholder="Enter your answer here. No Spaces">
     </div>
     <div>
-        <label>4. Kupal ba si Jed? Yes or No</label>
+        <label>4. If f(x) = 4x + 7. Find the inverse function of it. </label>
         <input type="text" id="answer4" placeholder="Enter your answer here. No Spaces">
     </div>
     <div>
-        <label>5. Kupal ba si Brian? Yes or No</label>
+        <label>5. If there are three functions, such as f(x) = x, g(x) = 2x and h(x) = 3x. Then find the composition of these functions such as [f ∘ (g ∘ h)] (x) for x = -1.</label>
         <input type="text" id="answer5" placeholder="Enter your answer here. No Spaces">
     </div>
     <button onclick="checkAnswers()">Submit</button>
     <div id="message" class="message"></div>
 </div>
-
+<div id = "box" onclick = "answersheet()">Click me 😛</div>
+<div class = "answerbox" id = "answerbox">
+<h3>1. x^2+8x+1</h3>
+<h3>2. 2/x+1</h3>
+<h3>3. 2x^3+3x^2-2x-3</h3>
+<h3>4. (x-7)/4</h3>
+<h3>5. 6(-1)=-6</h3>
+</div>
 <script>
     function checkAnswers() {
-        const correctAnswers = ["Yes", "Yes", "Yes", "Yes", "Yes"]; 
+        const correctAnswers = ["x^2+8x+1", "2/x+1", "2x^3+3x^2-2x-3", "(x-7)/4", "6(-1)=-6"]; 
         const userAnswers = [
             document.getElementById("answer1").value.trim(),
             document.getElementById("answer2").value.trim(),
@@ -223,9 +255,54 @@
                 jumpscareDiv2.style.display = "none"; 
             }, 2000);
         }
-
+        
         messageDiv.style.display = "block";
     }
+	const box = document.getElementById("box");
+    let boxWidth = 100;
+    let boxHeight = 100;
+
+    let x = 0;
+    let y = 0;
+    let dx = 2;  
+    let dy = 2;  
+    const speed = 4;  
+
+    function bounceBox() {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+
+        x += dx * speed;
+        y += dy * speed;
+
+        if (x + boxWidth >= screenWidth || x <= 0) {
+            dx = -dx;
+        }
+        if (y + boxHeight >= screenHeight || y <= 0) {
+            dy = -dy;
+        }
+
+        box.style.transform = `translate(${x}px, ${y}px)`;
+
+        requestAnimationFrame(bounceBox);
+    }
+
+    bounceBox();
+	
+	function answersheet() {
+	const answerbox = document.getElementById('answerbox')
+	answerbox.style.display = "flex"; 
+    answerbox.style.opacity = "1";
+	 
+	    setTimeout(function() {
+        answerbox.style.opacity = "0";
+        }, 1000);
+
+        setTimeout(() => {
+        answerbox.style.display = "none"; 
+        }, 2000);
+	
+	}
 </script>
 
 </body>

@@ -7,7 +7,7 @@
     <style>
         @media (min-width: 768px) {
             .box1, .box2 {
-                width: 50%; 
+                width: 50%; /* On larger screens, keep them side-by-side */
             }
         }
 		 @media (min-width: 768px) {
@@ -379,7 +379,7 @@
 		height: 10%;
 		display: flex;
 		flex-direction: rows;
-		margin-bottom: 40px;
+		margin-bottom: 10px;
 		color: #8b4513;
 		}
 		
@@ -597,7 +597,7 @@
 	<div class = "addition">
 	<h1>Inverse Function</h1><br>
 	<h3>if f(x) = 5x + 6. What is the Inverse function?</h3>
-	<p>y⁻¹(x)) = <input class = "answer" type = "text" id ="answer2" placeholder = "Enter your anwer here"></p>
+	<p>f⁻¹(x)) = <input class = "answer" type = "text" id ="answer2" placeholder = "Enter your anwer here"></p>
 	<button class = "submit" onclick = "answer2()">Submit</button>
 	<div class = "text" id = "text2"></div>
 	</div>
@@ -669,7 +669,7 @@
 				           <p>The domain of the sum of two functions is the intersection of the domain of the independent functions. The sum of two functions at a given input is equal to the sum of the independent functions at the same input. i.e.,</p>
 				           <p>The formula for the addition of function is <strong>(f + g)(x) = f(x) + g(x)</strong></p>
 				           <p>Let f(x) and g(x) represent the two functions</p><br>
-                           <p>If f(x) = x + 2 and g(x) = x² - 3x + 2 then find (f + g)(x) and (f - g)(x).</p>
+                           <p>If f(x) = x + 2 and g(x) = x² - 3x + 2 then find (f + g)(x).</p>
                            <p>= (x + 2) + (x² - 3x + 2)</p>
 						   <p>= x² - 2x + 4</p>`;
             } else if (type === 'subtraction') {
@@ -677,7 +677,7 @@
 				           <p>The domain of the difference of two functions is the intersection of the domain of the independent functions. The difference of two functions at a given input is equal to the difference of the independent functions at the same input. i.e.,</p>
 				           <p>The formula for the subtraction of function is <strong>(f - g)(x) = f(x) - g(x)</strong></p>
 						   <p>Let f(x) and g(x) represent the two functions</p><br>
-                           <p>If f(x) = x + 2 and g(x) = x² - 3x + 2 then find (f + g)(x) and (f - g)(x).</p>
+                           <p>If f(x) = x + 2 and g(x) = x² - 3x + 2 then find (f - g)(x).</p>
                            <p>= (x + 2) - (x² - 3x + 2)</p>
 						   <p>= x + 2 - x² + 3x - 2</p>
 						   <p>= -x² + 4x</p>`;
@@ -686,17 +686,16 @@
 				           <p>The domain of the product of two functions is the intersection of the domain of the independent functions. The product of two functions at a given input is equal to the product of the independent functions at the same input. i.e., The product of functions results in a binomial function, cubic function, or a polynomial function.</p>
 				           <p>The formula for the multiplication of function is <strong>(f · g) (x) = f(x) · g(x)</strong></p>
 						   <p>Let f(x) and g(x) represent the two functions</p><br>
-                           <p>If f(x) = x + 2 and g(x) = x² - 3x + 2 then find (f + g)(x) and (f - g)(x) and find their domains.</p>
-                           <p>= (x + 2) (x2 - 3x + 2)</p>
-						   <p>= x3 - 3x2 + 2x + 2x2 - 6x + 4</p>
-						   <p>= x3 - x2 - 4x + 4</p>`;
+                           <p>If f(x) = 2x - 5 and g(x) = 4x2 then find (f * g)(x).</p>
+                           <p>= 2x * 4x² + (-5) * 4x2</p>
+						   <p>= 8x³ - 20x²</p>`;	
             } else if (type === 'division') {
                 content = `<h2>Division of Functions Example</h2>
 				           <p>The domain of the quotient of two functions is the intersection of the domain of the independent functions. But we have to take care of the extra condition, setting the denominator function to "not equal to 0" because if the denominator is 0, then the fraction is undefined. The quotient of two functions at a given input is equal to the quotient of the independent functions at the same input. i.e.,</p>
 				           <p>The formula for the division of function is <strong>(f / g) (x) = f(x) / g(x), given g(x) ≠ 0</strong></p>
 						   <p>Let f(x) and g(x) represent the two functions</p><br>
-                           <p>If f(x) = x + 2 and g(x) = x² - 3x + 2 then find (f + g)(x) and (f - g)(x) and find their domains.</p>
-						   <p>= (x + 2) / (x2 - 3x + 2)</p>
+                           <p>If f(x) = x + 2 and g(x) = x² - 3x + 2 then find (f / g)(x).</p>
+						   <p>= (x + 2) / (x² - 3x + 2)</p>
 						   <p>= (x + 2) / [(x - 2) (x - 1)]`;
             }
 
