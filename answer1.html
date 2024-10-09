@@ -117,7 +117,32 @@
 			max-width: 100%;
             max-height: 100%;
         }
-
+        
+		#box {
+            width: 100px;
+            height: 100px;
+            background: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-decoration: none;
+			
+        }
+		
+		.answerbox {
+		position: absolute;
+		background-color: white;
+		width: auto;
+		height: auto;
+		padding: 10px;
+		display: none;
+		opacity: 0;
+		cursor: pointer;
+		flex-direction: column;
+		}
     </style>
 </head>
 <body>
@@ -160,7 +185,14 @@
     <button onclick="checkAnswers()">Submit</button>
     <div id="message" class="message"></div>
 </div>
-
+<div id = "box" onclick = "answersheet()">Click me 😛</div>
+<div class = "answerbox" id = "answerbox">
+<h3>1. Relation</h3>
+<h3>2. Function</h3>
+<h3>3. Domain</h3>
+<h3>4. Composite</h3>
+<h3>5. Inverse</h3>
+</div>
 <script>
     function checkAnswers() {
         const correctAnswers = ["relation", "function", "domain", "composite", "inverse"]; 
@@ -211,6 +243,7 @@
             setTimeout(() => {
                 jumpscareDiv1.style.display = "none"; 
             }, 2000);
+			
         } else {
             messageDiv.textContent = "Ewan bakit ganiyan ka, " + name + "! Your score is " + score + ".";
             messageDiv.className = "message wrong";
@@ -218,15 +251,61 @@
             jumpscareDiv2.style.opacity = "1";
 			setTimeout(function() {
                 jumpscareDiv2.style.opacity = "0";
-            }, 1000);
+            }, 2000);
 
             setTimeout(() => {
                 jumpscareDiv2.style.display = "none"; 
-            }, 2000);
+            }, 4000);
         }
         
         messageDiv.style.display = "block";
+		
     }
+	 const box = document.getElementById("box");
+    let boxWidth = 100;
+    let boxHeight = 100;
+
+    let x = 0;
+    let y = 0;
+    let dx = 2;  
+    let dy = 2;  
+    const speed = 4;  
+
+    function bounceBox() {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+
+        x += dx * speed;
+        y += dy * speed;
+
+        if (x + boxWidth >= screenWidth || x <= 0) {
+            dx = -dx;
+        }
+        if (y + boxHeight >= screenHeight || y <= 0) {
+            dy = -dy;
+        }
+
+        box.style.transform = `translate(${x}px, ${y}px)`;
+
+        requestAnimationFrame(bounceBox);
+    }
+
+    bounceBox();
+	
+	function answersheet() {
+	const answerbox = document.getElementById('answerbox')
+	answerbox.style.display = "flex"; 
+    answerbox.style.opacity = "1";
+	 
+	    setTimeout(function() {
+        answerbox.style.opacity = "0";
+        }, 1000);
+
+        setTimeout(() => {
+        answerbox.style.display = "none"; 
+        }, 2000);
+	
+	}
 </script>
 
 </body>
