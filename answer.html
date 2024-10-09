@@ -146,10 +146,10 @@
 </head>
 <body>
 <div id="jumpscare" class="katakot">
-    <img src="pogi4.jpeg" alt="Jumpscare Image">
+    <img src="pogi3.jpeg" alt="Jumpscare Image">
 </div>
 <div id="jumpscare1" class="katakot">
-    <img src="pogi3.jpeg" alt="Jumpscare Image">
+    <img src="pogi4.jpeg" alt="Jumpscare Image">
 </div>
 <div id="jumpscare2" class="katakot">
     <img src="pogi5.jpeg" alt="Jumpscare Image">
@@ -193,71 +193,63 @@
 <h3>5. -6</h3>
 </div>
 <script>
-    function checkAnswers() {
-        const correctAnswers = ["x^2+8x+1", "2/x+1", "2x^3+3x^2-2x-3", "(x-7)/4", "-6"]; 
-        const userAnswers = [
-            document.getElementById("answer1").value.trim(),
-            document.getElementById("answer2").value.trim(),
-            document.getElementById("answer3").value.trim(),
-            document.getElementById("answer4").value.trim(),
-            document.getElementById("answer5").value.trim()
-        ];
+   function checkAnswers() {
+    const correctAnswers = ["x^2+8x+1", "2/x+1", "2x^3+3x^2-2x-3", "(x-7)/4", "-6"]; 
+    const userAnswers = [
+        document.getElementById("answer1").value.trim(),
+        document.getElementById("answer2").value.trim(),
+        document.getElementById("answer3").value.trim(),
+        document.getElementById("answer4").value.trim(),
+        document.getElementById("answer5").value.trim()
+    ];
 
-        const messageDiv = document.getElementById("message");
-        const jumpscareDiv = document.getElementById("jumpscare");
-		const jumpscareDiv1 = document.getElementById("jumpscare1");
-		const jumpscareDiv2 = document.getElementById("jumpscare2");
-        const name = document.getElementById("name").value.trim();
+    const messageDiv = document.getElementById("message");
+    const jumpscares = [
+        document.getElementById("jumpscare"),
+        document.getElementById("jumpscare1"),
+        document.getElementById("jumpscare2")
+    ];
+    const name = document.getElementById("name").value.trim();
 
-        let score = 0;
+    let score = 0;
 
-        for (let i = 0; i < correctAnswers.length; i++) {
-            if (userAnswers[i].toLowerCase() === correctAnswers[i].toLowerCase()) {
-                score += 4;
-            }
+
+    for (let i = 0; i < correctAnswers.length; i++) {
+        if (userAnswers[i].toLowerCase() === correctAnswers[i].toLowerCase()) {
+            score += 4;
         }
-
-        if (score === 20) {
-            messageDiv.textContent = "Perfect, " + name + "! Your score is 20. Pasend kay Erica yung solution";
-            messageDiv.className = "message correct";
-            jumpscareDiv.style.display = "flex"; 
-            jumpscareDiv.style.opacity = "1";
-
-            setTimeout(function() {
-                jumpscareDiv.style.opacity = "0";
-            }, 1000);
-
-            setTimeout(() => {
-                jumpscareDiv.style.display = "none"; 
-            }, 2000);
-        } else if (score >= 12) {
-            messageDiv.textContent = "Kupal ka, " + name + "! Your score is " + score + ". Pasend kay Erica yung solution";
-            messageDiv.className = "message correct";
-            jumpscareDiv1.style.display = "flex"; 
-            jumpscareDiv1.style.opacity = "1";
-			setTimeout(function() {
-                jumpscareDiv1.style.opacity = "0";
-            }, 1000);
-
-            setTimeout(() => {
-                jumpscareDiv1.style.display = "none"; 
-            }, 2000);
-        } else {
-            messageDiv.textContent = "Ewan bakit ganiyan ka, " + name + "! Your score is " + score + ". Pasend kay Erica yung solution";
-            messageDiv.className = "message wrong";
-            jumpscareDiv2.style.display = "flex"; 
-            jumpscareDiv2.style.opacity = "1";
-			setTimeout(function() {
-                jumpscareDiv2.style.opacity = "0";
-            }, 1000);
-
-            setTimeout(() => {
-                jumpscareDiv2.style.display = "none"; 
-            }, 2000);
-        }
-        
-        messageDiv.style.display = "block";
     }
+
+
+    const randomIndex = Math.floor(Math.random() * jumpscares.length);
+    const selectedJumpscare = jumpscares[randomIndex];
+
+    if (score === 20) {
+        messageDiv.textContent = "Perfect, " + name + "! Your score is 20. Pasend kay Erica yung solution";
+        messageDiv.className = "message correct";
+    } else if (score >= 12) {
+        messageDiv.textContent = "Kupal ka, " + name + "! Your score is " + score + ". Pasend kay Erica yung solution";
+        messageDiv.className = "message correct";
+    } else {
+        messageDiv.textContent = "Ewan bakit ganiyan ka, " + name + "! Your score is " + score + ". Pasend kay Erica yung solution";
+        messageDiv.className = "message wrong";
+    }
+
+
+    selectedJumpscare.style.display = "flex"; 
+    selectedJumpscare.style.opacity = "1";
+
+    setTimeout(function() {
+        selectedJumpscare.style.opacity = "0";
+    }, 1000);
+
+    setTimeout(() => {
+        selectedJumpscare.style.display = "none"; 
+    }, 2000);
+
+    messageDiv.style.display = "block";
+}
+
 	const box = document.getElementById("box");
     let boxWidth = 100;
     let boxHeight = 100;
